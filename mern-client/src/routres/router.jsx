@@ -3,6 +3,9 @@ import App from "../App";
 import Home from "../home/Home";
 import Shop from "../shop/Shop";
 import Blog from "../components/Blog";
+import About from "../components/About";
+import SingleBook from "../components/SingleBook";
+import Navbar from "../components/Navbar";
 
 const router = createBrowserRouter([
   {
