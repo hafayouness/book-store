@@ -42,7 +42,29 @@ const getAllBooks = async (req, res) => {
     });
   }
 };
+// Route pour récupérer  un livre
+const getSingleBook = async (req, res) => {
+  const bookId = req.params.id;
+  try {
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({ success: false, message: "Book not fund" });
+    }
 
+    res.status(200).json({
+      success: true,
+      message: "succesfully getting a single book",
+      data: book,
+    });
+  } catch (error) {
+    console.error("Error fetching book:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch book",
+      error: error.message,
+    });
+  }
+};
 // Route pour mettre à jour un livre existant
 const updateBook = async (req, res) => {
   const id = req.params.id;
@@ -53,19 +75,19 @@ const updateBook = async (req, res) => {
     if (updateBook) {
       res.status(200).json({
         success: true,
-        message: "succesfully to update",
+        message: "Successfully updated",
         data: updateBook,
       });
     } else {
       res.status(404).json({
-        succes: false,
-        message: "Tour not fund ",
+        success: false,
+        message: "Book not found",
       });
     }
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: "not fund",
+      message: "Failed to update",
       error: err.message,
     });
   }
@@ -103,4 +125,5 @@ module.exports = {
   updateBook,
   deleteBook,
   getCategoryBook,
+  getSingleBook,
 };

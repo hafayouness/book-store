@@ -6,9 +6,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
-app.get("/", (req, res) => {
-  res.send("hello word");
-});
+// app.get("/", (req, res) => {
+//   res.send("hello word");
+// });
 
 // routes
 
@@ -16,6 +16,7 @@ const routeBooks = require("./routes/books.js");
 
 // midlleware
 dotenv.config();
+app.use(express.static("public"));
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/all-books", routeBooks);
@@ -23,7 +24,7 @@ app.use("/api/v1/all-books", routeBooks);
 // mongodb
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL);
+    await mongoose.connect(process.env.MONGO__URL);
 
     console.log(" MongoDB dataBase connected");
   } catch (err) {
