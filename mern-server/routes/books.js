@@ -11,7 +11,7 @@ const {
 const router = express.Router();
 
 router.get("/", getAllBooks);
-router.get("/:id", getSingleBook);
+router.get("/book/:id", getSingleBook);
 router.post("/upload-book", CreateBook);
 router.get("/category/:category", getCategoryBook);
 router.delete("/:id", deleteBook);
