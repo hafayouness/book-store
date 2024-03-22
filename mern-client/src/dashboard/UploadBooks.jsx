@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 const UploadBooks = () => {
   const bookCategories = [
+    "Choose",
     "Fiction",
     "Non-Fiction",
     "Fantasy",
@@ -28,10 +29,50 @@ const UploadBooks = () => {
   const handleChangeSelectedValue = (event) => {
     setSlectedBooksCategory(event.target.value);
   };
+  const HandleBookSubmit = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+
+    const bookTitle = form.bookTitle.value;
+    const authorName = form.authorName.value;
+    const imageURL = form.imageURL.value;
+    const bookDescription = form.bookDescription.value;
+    const bookPDFURL = form.bookPDFURL.value;
+    const category = form.categoryName.value;
+
+    const bookObj = {
+      bookTitle,
+      authorName,
+      imageURL,
+      bookDescription,
+      bookPDFURL,
+      category,
+    };
+
+    // send to db
+    fetch("http://localhost:5000/api/v1/all-books/upload-book", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(bookObj),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert("Book aploaded successfully");
+        form.reset();
+      });
+  };
+
   return (
     <div className="px-4 my-12">
       <h2 className="mb-8 text-3xl font-bold text-center">Upload A book </h2>
-      <form className="flex lg:w-[960px] flex-col flex-wrap gap-4">
+      <form
+        className="flex lg:w-[960px] flex-col flex-wrap gap-4"
+        onSubmit={HandleBookSubmit}
+      >
         {/* first row */}
         <div className="flex gap-8">
           <div className="lg:w-1/2">
@@ -48,10 +89,10 @@ const UploadBooks = () => {
           </div>
           <div className="lg:w-1/2">
             <div className="mb-2 block">
-              <Label htmlFor="bookTitle" value="Book Title" />
+              <Label htmlFor="authorName" value="Author Name" />
             </div>
             <TextInput
-              id="bookTitle"
+              id="authorName"
               name="authorName"
               type="text"
               placeholder="Author Name"

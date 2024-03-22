@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaBlog } from "react-icons/fa";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { FaXmark } from "react-icons/fa6";
+import { AuthContext } from "../contects/AuthProvider";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -66,6 +69,8 @@ const Navbar = () => {
 
           {/* button for lg device*/}
           <div className="space-x-12 hidden lg:flex items-center">
+            {/* <div className="text-gray-500">{user ? user.displayName : ""}</div> */}
+
             <button>
               <FaBarsStaggered className="w-5  hover:text-blue-700" />
             </button>
