@@ -69,7 +69,9 @@ const Navbar = () => {
 
           {/* button for lg device*/}
           <div className="space-x-12 hidden lg:flex items-center">
-            {/* <div className="text-gray-500">{user ? user.displayName : ""}</div> */}
+            <div className="text-gray-500 font-bold cursor-pointer">
+              <Link to="/admin/dashboard">{user ? user.displayName : ""}</Link>
+            </div>
 
             <button>
               <FaBarsStaggered className="w-5  hover:text-blue-700" />
